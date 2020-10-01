@@ -1,8 +1,10 @@
+com/platform/services/metadata/PlatformDevice.class
 com/platform/services/auth/User.class
 com/platform/services/configurations/PathConfiguration.class
 com/platform/services/health/ApplicationHealthCheck.class
 com/platform/services/auth/AppAuthorizer.class
 com/platform/services/platform/PlatformUserFunctions.class
+com/platform/services/services/DeviceService.class
 com/platform/services/configurations/AppConfigurations.class
 com/platform/services/configurations/Schemas.class
 com/platform/services/configurations/MyCommand.class
@@ -10,7 +12,7 @@ com/platform/services/auth/AppBasicAuthenticator.class
 com/platform/services/metadata/PlatformUserDao.class
 com/platform/services/configurations/DBConfigurations.class
 com/platform/services/configurations/ConfigPaths.class
+com/platform/services/services/RegistrationService.class
 com/platform/services/metadata/PlatformUser.class
 com/platform/services/application/ApplicationMain.class
 com/platform/services/configurations/Configuration.class
-com/platform/services/services/UserService.class

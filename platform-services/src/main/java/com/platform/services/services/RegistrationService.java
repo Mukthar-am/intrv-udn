@@ -2,28 +2,26 @@ package com.platform.services.services;
 
 import com.codahale.metrics.health.HealthCheck;
 import com.codahale.metrics.health.HealthCheckRegistry;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.platform.core.metadata.User;
 import com.platform.services.configurations.Configuration;
+import com.platform.services.metadata.PlatformDevice;
 import com.platform.services.metadata.PlatformUser;
 import com.platform.services.platform.PlatformUserFunctions;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -37,15 +35,15 @@ import java.util.Set;
  *
  */
 @Slf4j
-@Path("/user")
+@Path("/register")
 @Produces(MediaType.APPLICATION_JSON)
-public class UserService {
-    final static Logger logger = LoggerFactory.getLogger(UserService.class);
+public class RegistrationService {
+    final static Logger logger = LoggerFactory.getLogger(RegistrationService.class);
     private Configuration configurations;
     private final Validator validator;
     private HealthCheckRegistry registry;
 
-    public UserService(Validator validator, Configuration configs, HealthCheckRegistry registry) {
+    public RegistrationService(Validator validator, Configuration configs, HealthCheckRegistry registry) {
         this.validator = validator;
         this.configurations = configs;
         this.registry = registry;
@@ -67,8 +65,13 @@ public class UserService {
     }
 
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     @POST
-    @Path("/register")
+    @Path("/user")
     public Response registerUserLogin(PlatformUser user) {
         logger.info("user: " + user.toString());
 
@@ -108,4 +111,49 @@ public class UserService {
 
         }
     }
+
+
+    /** ToDo: this is retained for explaination on the approaches. */
+    @POST
+    @Path("/device")
+    public Response registerUserLogin(PlatformDevice device) {
+        logger.info("device: " + device.toString());
+
+        /** validations */
+        Set<ConstraintViolation<PlatformDevice>> violations = validator.validate(device);
+
+        if (violations.size() > 0) {
+            ArrayList<String> validationMessages = new ArrayList<>();
+            for (ConstraintViolation<PlatformDevice> violation : violations) {
+                validationMessages.add(violation.getPropertyPath().toString() + ": " +
+                        violation.getMessage());
+            }
+
+            logger.error(
+                    "Validation failures have occurred. Validation msgs: {}, incoming request: {}",
+                    validationMessages, device.toString());
+
+            return Response.status(Response.Status.BAD_REQUEST).entity(validationMessages).build();
+        } else {
+            logger.info("all good...");
+
+            /** register the user */
+            device.registerUser();
+
+            /** check for successful registration */
+            if (PlatformUserFunctions.isKnownDevice(device) != null) {
+                logger.info("Device found" );
+            } else {
+                logger.info("Device NOT found...");
+            }
+
+            Response response = Response
+                    .accepted("device registered successfully.")
+                    .build();
+
+            return response;
+
+        }
+    }
+
 }
