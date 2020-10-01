@@ -1,0 +1,91 @@
+
+# Defaults and templatization
+template: Hello, %s!
+defaultName: Stranger
+
+
+# Logging settings.
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  # Logger-specific levels.
+  loggers:
+
+    # Sets the level for 'com.example.app' to DEBUG.
+    com.gca: DEBUG
+
+    # Redirects SQL logs to a separate file
+    org.hibernate:
+      level: INFO
+
+  # Logback's Time Based Rolling Policy - archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}.log.gz
+  # Logback's Size and Time Based Rolling Policy -  archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}-%i.log.gz
+  # Logback's Fixed Window Rolling Policy -  archivedLogFilenamePattern: /tmp/application-%i.log.gz
+
+  appenders:
+#    - type: console
+#      threshold: INFO
+#      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+#      timeZone: UTC
+
+    - type: file
+      threshold: DEBUG
+      #logFormat: "%-5p [%d{ISO8601}] [%X{reqId} %X{txnId}] %replace(%c: %m){'\n', '\n '}%n%replace(%ex){'(?m)^(.)',' $1'}%nopex"
+      logFormat: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+      currentLogFilename: /opt/platform/logs/server/server.log
+      archivedLogFilenamePattern: /opt/platform/logs/server/server.log-%d.log.gz
+      archivedFileCount: 5
+      timeZone: IST
+
+configPaths:
+  pathConfiguration:
+    host: "production-server.amazonaws.com"
+
+appConfigurations:
+  sendMail: true
+  sendSMS: false
+  sendWhatsappSMS: false
+  enableCache: false
+
+database:
+  poolSize: "5"
+  host: "localhost"
+  name: "gca"
+  user: "gca"
+  password: "Ca$hc0w123"
+  port: 5432
+  schemas:
+      requests: "INSERT INTO requests (id, customer_contact, customer_email, event_time, source, trip_type, pickup_time,\
+       pickup_location, pickup_dropoff, vehicle_type, trip_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+
+server:
+  adminMinThreads: 1
+  adminMaxThreads: 64
+  adminContextPath: /
+  rootPath: /pl-rest
+  applicationContextPath: /
+
+  applicationConnectors:
+    - type: https
+      port: 8443
+      keyStorePath: ../certs/my-server.jks
+      keyStorePassword: Ca$hc0w123
+      keyStoreType: JKS
+      supportedProtocols: [TLSv1, TLSv1.1, TLSv1.2]
+    - type: http
+      port: 8089
+      outputBufferSize: 32KiB
+      idleTimeout: 30 seconds
+      minBufferPoolSize: 64 bytes
+      bufferPoolIncrement: 1KiB
+      maxBufferPoolSize: 64KiB
+      acceptorThreads: 1
+      selectorThreads: 2
+      acceptQueueSize: 1024
+      reuseAddress: true
+      soLingerTime: 600s
+  adminConnectors:
+    - type: http
+      port: 8090

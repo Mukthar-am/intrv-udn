@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.muks.platform</groupId>
+    <artifactId>platform</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <name>platform</name>
+
+    <properties>
+        <testng.version>6.9.10</testng.version>
+        <java.version>11</java.version>
+        <surefire.version>2.17</surefire.version>
+        <jacoco.version>0.7.2.201409121644</jacoco.version>
+        <slf4j.version>1.7.7</slf4j.version>
+        <logback.version>1.0.7</logback.version>
+        <dropwizard.version>1.2.2</dropwizard.version>
+        <redission.version>3.7.3</redission.version>
+
+        <apache.http.client.versino>4.5.3</apache.http.client.versino>
+        <gson.version>2.8.0</gson.version>
+
+        <!-- Unique entry point for version number management -->
+        <global.version>1.0</global.version>
+
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+<!--        <jackson-databind.version>2.9.0.pr1</jackson-databind.version>-->
+        <jackson-databind.version>2.9.4</jackson-databind.version>
+
+
+        <!--        plugin-->
+        <maven-surefire.version>2.22.1</maven-surefire.version>
+    </properties>
+
+
+    <modules>
+        <module>platform-core</module>
+        <module>platform-services</module>
+        <module>cache-man</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.3.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
