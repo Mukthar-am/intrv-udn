@@ -1,7 +1,6 @@
 package com.platform.services.platform;
 
 import com.muks.redis.RedisManager;
-import com.platform.core.metadata.User;
 import com.platform.services.metadata.PlatformDevice;
 import com.platform.services.metadata.PlatformUser;
 import org.slf4j.Logger;

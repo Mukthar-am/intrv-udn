@@ -15,7 +15,6 @@ import javax.validation.Validator;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -138,7 +137,10 @@ public class RegistrationService {
             logger.info("all good...");
 
             /** register the user */
-            device.registerUser();
+            device.registerDevice();
+
+            /** register the device to the user */
+            device.registerDeviceToUser();
 
             /** check for successful registration */
             if (PlatformUserFunctions.isKnownDevice(device) != null) {

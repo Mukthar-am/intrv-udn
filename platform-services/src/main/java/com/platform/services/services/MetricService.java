@@ -3,6 +3,7 @@ package com.platform.services.services;
 import com.codahale.metrics.health.HealthCheck;
 import com.codahale.metrics.health.HealthCheckRegistry;
 import com.platform.services.configurations.Configuration;
+import com.platform.services.metadata.Metrices;
 import com.platform.services.metadata.PlatformUser;
 import com.platform.services.platform.PlatformUserFunctions;
 import lombok.extern.slf4j.Slf4j;
@@ -25,15 +26,15 @@ import java.util.Map;
 import java.util.Set;
 
 @Slf4j
-@Path("/device")
+@Path("/metric")
 @Produces(MediaType.APPLICATION_JSON)
-public class DeviceService {
-    final static Logger logger = LoggerFactory.getLogger(DeviceService.class);
+public class MetricService {
+    final static Logger logger = LoggerFactory.getLogger(MetricService.class);
     private Configuration configurations;
     private final Validator validator;
     private HealthCheckRegistry registry;
 
-    public DeviceService(Validator validator, Configuration configs, HealthCheckRegistry registry) {
+    public MetricService(Validator validator, Configuration configs, HealthCheckRegistry registry) {
         this.validator = validator;
         this.configurations = configs;
         this.registry = registry;
@@ -56,37 +57,31 @@ public class DeviceService {
 
 
     @POST
-    @Path("/register")
-    public Response registerUserLogin(PlatformUser user) {
-        logger.info("user: " + user.toString());
+    @Path("/add")
+    public Response registerUserLogin(Metrices metrics) {
+        logger.info("metrics: " + metrics.toString());
 
         /** validations */
-        Set<ConstraintViolation<PlatformUser>> violations = validator.validate(user);
+        Set<ConstraintViolation<Metrices>> violations = validator.validate(metrics);
 
         if (violations.size() > 0) {
             ArrayList<String> validationMessages = new ArrayList<>();
-            for (ConstraintViolation<PlatformUser> violation : violations) {
+            for (ConstraintViolation<Metrices> violation : violations) {
                 validationMessages.add(violation.getPropertyPath().toString() + ": " +
                         violation.getMessage());
             }
 
             logger.error(
                     "Validation failures have occurred. Validation msgs: {}, incoming request: {}",
-                    validationMessages, user.toString());
+                    validationMessages, metrics.toString());
 
             return Response.status(Response.Status.BAD_REQUEST).entity(validationMessages).build();
         } else {
             logger.info("all good...");
 
             /** register the Device */
-            user.registerUser();
+            metrics.addMetrices();
 
-            /** check for successful registration */
-            if (PlatformUserFunctions.isKnownUser(user) != null) {
-                logger.info("Device found" );
-            } else {
-                logger.info("Device NOT found...");
-            }
 
             Response response = Response
                     .accepted("Device registered successfully.")

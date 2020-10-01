@@ -1,9 +1,9 @@
-/Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/services/DeviceService.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/configurations/AppConfigurations.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/platform/PlatformUserFunctions.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/configurations/Schemas.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/auth/User.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/auth/AppAuthorizer.java
+/Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/services/MetricService.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/metadata/PlatformUser.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/services/RegistrationService.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/configurations/MyCommand.java
@@ -13,6 +13,7 @@
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/metadata/PlatformUserDao.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/auth/AppBasicAuthenticator.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/configurations/Configuration.java
+/Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/metadata/Metrices.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/health/ApplicationHealthCheck.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/configurations/DBConfigurations.java
 /Users/mukthara/Data/git/personal/interviews/platform/platform-services/src/main/java/com/platform/services/application/ApplicationMain.java

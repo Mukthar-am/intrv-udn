@@ -1,12 +1,11 @@
 package com.platform.services.metadata;
 
 import com.muks.redis.RedisManager;
-import com.platform.core.metadata.User;
-import net.bytebuddy.implementation.bind.annotation.Empty;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PlatformUser implements PlatformUserDao {
@@ -33,6 +32,14 @@ public class PlatformUser implements PlatformUserDao {
     private String DeviceId = new String("");
 
     private List<Integer> UserDevices = new ArrayList<>();
+
+
+    private int Height = -1;
+    private int Weight = -1;
+    private HashMap<Long, Integer> HeartRate = new HashMap<>();
+    private HashMap<Long, Integer> CaloriesConsumed = new HashMap<>();
+    private HashMap<Long, Integer> CaloriesBurnt = new HashMap<>();
+
 
     public PlatformUser() {
     }
@@ -102,6 +109,59 @@ public class PlatformUser implements PlatformUserDao {
     public void setdeviceid(String deviceId) {
         DeviceId = deviceId;
     }
+
+    public void addDevice(int deviceId) {
+        this.UserDevices.add(deviceId);
+    }
+
+
+    /**
+     * user metrics
+     */
+    public int getHeight() {
+        return Height;
+    }
+
+    public void setHeight(int height) {
+        Height = height;
+    }
+
+    public int getWeight() {
+        return Weight;
+    }
+
+    public void setWeight(int weight) {
+        Weight = weight;
+    }
+
+    public HashMap<Long, Integer> getHeartRate() {
+        return HeartRate;
+    }
+
+    public void addHeartRate(Long time, Integer value) {
+        this.HeartRate.put(time, value);
+    }
+
+    public HashMap<Long, Integer> getCaloriesConsumed() {
+        return CaloriesConsumed;
+    }
+
+    public void addCaloriesConsumed(Long time, Integer value) {
+        this.CaloriesConsumed.put(time, value);
+    }
+
+    public HashMap<Long, Integer> getCaloriesBurnt() {
+        return CaloriesBurnt;
+    }
+
+    public void addCaloriesBurnt(Long time, Integer value) {
+        this.CaloriesBurnt.put(time, value);
+    }
+
+    /**
+     * end user metrics
+     */
+
 
     // event_date, source, trip_type, pickup_time, pickup_location, pickup_dropoff
     public String toString() {

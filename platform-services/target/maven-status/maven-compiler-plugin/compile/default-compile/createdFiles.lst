@@ -1,12 +1,13 @@
 com/platform/services/metadata/PlatformDevice.class
 com/platform/services/auth/User.class
+com/platform/services/services/MetricService.class
 com/platform/services/configurations/PathConfiguration.class
 com/platform/services/health/ApplicationHealthCheck.class
 com/platform/services/auth/AppAuthorizer.class
 com/platform/services/platform/PlatformUserFunctions.class
-com/platform/services/services/DeviceService.class
 com/platform/services/configurations/AppConfigurations.class
 com/platform/services/configurations/Schemas.class
+com/platform/services/metadata/Metrices.class
 com/platform/services/configurations/MyCommand.class
 com/platform/services/auth/AppBasicAuthenticator.class
 com/platform/services/metadata/PlatformUserDao.class

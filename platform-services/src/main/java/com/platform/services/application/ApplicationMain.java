@@ -6,6 +6,7 @@ import com.platform.services.auth.AppBasicAuthenticator;
 import com.platform.services.auth.User;
 import com.platform.services.configurations.Configuration;
 import com.platform.services.health.ApplicationHealthCheck;
+import com.platform.services.services.MetricService;
 import com.platform.services.services.RegistrationService;
 import io.dropwizard.Application;
 
@@ -73,6 +74,10 @@ public class ApplicationMain extends Application<Configuration> {
         final RegistrationService
                 registrationService = new RegistrationService(environment.getValidator(), configuration, environment.healthChecks());
         environment.jersey().register(registrationService);
+
+        final MetricService
+                metricService = new MetricService(environment.getValidator(), configuration, environment.healthChecks());
+        environment.jersey().register(metricService);
 
 
         /****** Dropwizard security - custom classes ***********/
